@@ -6,6 +6,7 @@ import './Header.css'
 export const Header = () => {
   const { getCartItemCount } = useCart()
   const [searchQuery, setSearchQuery] = useState('')
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const navigate = useNavigate()
 
   const handleSearch = (e) => {
@@ -16,31 +17,51 @@ export const Header = () => {
     }
   }
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false)
+  }
+
   return (
     <header className="header">
       <div className="header-container">
         <div className="logo">
-          <Link to="/">
+          <Link to="/" onClick={closeMobileMenu}>
             <span className="logo-text">KANDY</span>
             <span className="santa-hat">🎅</span>
           </Link>
         </div>
-        <nav className="nav-menu">
-          <Link to="/">Home</Link>
-          <Link to="/products">Shop</Link>
-          <Link to="/products?category=women" className="has-dropdown">
+        <button 
+          className="mobile-menu-toggle"
+          onClick={toggleMobileMenu}
+          aria-label="Toggle menu"
+          aria-expanded={isMobileMenuOpen}
+        >
+          <span className={`hamburger ${isMobileMenuOpen ? 'active' : ''}`}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+        <nav className={`nav-menu ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
+          <Link to="/" onClick={closeMobileMenu}>Home</Link>
+          <Link to="/products" onClick={closeMobileMenu}>Shop</Link>
+          <Link to="/products?category=women" className="has-dropdown" onClick={closeMobileMenu}>
             Women
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </Link>
-          <Link to="/products?category=men" className="has-dropdown">
+          <Link to="/products?category=men" className="has-dropdown" onClick={closeMobileMenu}>
             Men
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </Link>
-          <Link to="/products" className="offers-link">OFFERS</Link>
+          <Link to="/products" className="offers-link" onClick={closeMobileMenu}>OFFERS</Link>
         </nav>
         <div className="header-actions">
           <form onSubmit={handleSearch} className="search-form">

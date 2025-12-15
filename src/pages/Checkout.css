@@ -218,16 +218,268 @@
 }
 
 @media (max-width: 968px) {
+  .checkout-page {
+    padding-top: 120px;
+  }
+
+  .checkout-container {
+    padding: 1.5rem;
+  }
+
+  .checkout-container h1 {
+    font-size: 2rem;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+  }
+
+  .checkout-empty {
+    padding: 3rem 1.5rem;
+  }
+
+  .checkout-empty h2 {
+    font-size: 1.75rem;
+  }
+
+  .btn-shop-now {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.9rem;
+    min-height: 44px;
+  }
+
   .checkout-content {
     grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .checkout-form-section h2 {
+    font-size: 1.375rem;
+    margin-bottom: 1.25rem;
   }
 
   .checkout-summary {
     position: static;
+    order: -1;
+  }
+
+  .checkout-summary h2 {
+    font-size: 1.375rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .checkout-form {
+    padding: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .form-group label {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group input[type="tel"] {
+    padding: 0.875rem;
+    font-size: 0.95rem;
+    min-height: 44px;
   }
 
   .form-row {
     grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .payment-options {
+    gap: 0.625rem;
+  }
+
+  .payment-option {
+    padding: 0.875rem;
+    min-height: 44px;
+    font-size: 0.95rem;
+  }
+
+  .btn-place-order {
+    padding: 1rem;
+    font-size: 1rem;
+    min-height: 48px;
+  }
+
+  .order-item {
+    gap: 0.875rem;
+    padding: 0.875rem 0;
+  }
+
+  .order-item img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .order-item-info h4 {
+    font-size: 0.9rem;
+  }
+
+  .order-item-info p {
+    font-size: 0.8rem;
+  }
+
+  .order-item-price {
+    font-size: 0.95rem;
+  }
+
+  .total-row {
+    font-size: 0.95rem;
+    padding: 0.75rem 0;
+  }
+
+  .total-row.total {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .checkout-page {
+    padding-top: 140px;
+  }
+
+  .checkout-container {
+    padding: 1rem;
+  }
+
+  .checkout-container h1 {
+    font-size: 1.75rem;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+  }
+
+  .checkout-empty {
+    padding: 2.5rem 1rem;
+  }
+
+  .checkout-empty h2 {
+    font-size: 1.5rem;
+  }
+
+  .btn-shop-now {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.875rem;
+    min-height: 44px;
+  }
+
+  .checkout-content {
+    gap: 1.5rem;
+  }
+
+  .checkout-form-section h2,
+  .checkout-summary h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .checkout-form {
+    padding: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.125rem;
+  }
+
+  .form-group label {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group input[type="tel"] {
+    padding: 0.875rem;
+    font-size: 0.95rem;
+    min-height: 48px;
+  }
+
+  .form-row {
+    gap: 0;
+  }
+
+  .payment-options {
+    gap: 0.5rem;
+  }
+
+  .payment-option {
+    padding: 0.875rem;
+    min-height: 48px;
+    font-size: 0.9rem;
+  }
+
+  .payment-option input[type="radio"] {
+    min-width: 20px;
+    min-height: 20px;
+  }
+
+  .btn-place-order {
+    padding: 1rem;
+    font-size: 0.95rem;
+    min-height: 48px;
+  }
+
+  .checkout-summary {
+    padding: 1.5rem 1rem;
+  }
+
+  .order-items {
+    margin-bottom: 1.5rem;
+  }
+
+  .order-item {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+  }
+
+  .order-item img {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    min-height: 60px;
+  }
+
+  .order-item-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .order-item-info h4 {
+    font-size: 0.875rem;
+    line-height: 1.4;
+    margin-bottom: 0.25rem;
+  }
+
+  .order-item-info p {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    margin: 0.125rem 0;
+  }
+
+  .order-item-price {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .order-totals {
+    padding-top: 0.875rem;
+  }
+
+  .total-row {
+    font-size: 0.9rem;
+    padding: 0.625rem 0;
+  }
+
+  .total-row.total {
+    font-size: 1.125rem;
+    padding-top: 0.875rem;
   }
 }
 
