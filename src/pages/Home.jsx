@@ -1,192 +1,179 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { getFeaturedProducts, getBestSellingProducts } from '../data/products'
-import { formatCurrency } from '../utils/formatters'
-import './Home.css'
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { getFeaturedProducts, getBestSellingProducts } from '../data/products';
+import { formatCurrency } from '../utils/formatters';
+import { ProductCard } from '../components/common/ProductCard';
+import { Button } from '../components/common/Button';
+import { useCart } from '../contexts/CartContext';
+import { useToast } from '../contexts/ToastContext';
+import './Home.css';
 
 export const Home = () => {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [featuredProducts, setFeaturedProducts] = useState([])
-  const [bestSelling, setBestSelling] = useState([])
+  const { addToCart } = useCart();
+  const { addToast } = useToast();
+  const [featuredProducts, setFeaturedProducts] = useState([]);
+  const [bestSelling, setBestSelling] = useState([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
-    setFeaturedProducts(getFeaturedProducts())
-    setBestSelling(getBestSellingProducts())
-  }, [])
-
-  const slides = [
-    { 
-      id: 1, 
-      title: "New Collection", 
-      subtitle: "Shop the Latest",
-      image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    },
-    { 
-      id: 2, 
-      title: "Women's Collection", 
-      subtitle: "Explore Fashion",
-      image: "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    },
-    { 
-      id: 3, 
-      title: "Men's Collection", 
-      subtitle: "Style for All",
-      image: "https://plus.unsplash.com/premium_photo-1664910935747-6bb1e76eed99?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    }
-  ]
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length)
-  }
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
-  }
+    setFeaturedProducts(getFeaturedProducts());
+    setBestSelling(getBestSellingProducts());
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length)
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [slides.length])
+      setCurrentSlide((prev) => (prev + 1) % 3);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const slides = [
+    {
+      id: 1,
+      title: 'Premium Crop Tops',
+      subtitle: 'Discover Your Style',
+      description: 'Elevate your wardrobe with our curated collection of premium crop tops',
+      image: 'https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=1200&h=800&fit=crop'
+    },
+    {
+      id: 2,
+      title: 'New Collection',
+      subtitle: 'Latest Trends',
+      description: 'Stay ahead of fashion with our newest arrivals',
+      image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=1200&h=800&fit=crop'
+    },
+    {
+      id: 3,
+      title: 'Signature Teal',
+      subtitle: 'Bold & Beautiful',
+      description: 'Make a statement with our signature teal collection',
+      image: 'https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=1200&h=800&fit=crop'
+    }
+  ];
+
+  const handleQuickAdd = (product) => {
+    addToCart(product, product.sizes[0], product.colors[0], 1);
+    addToast(`${product.name} added to cart!`, 'success');
+  };
 
   return (
-    <div className="home-page">
-      {/* Hero Slider */}
-      <section className="hero-slider">
-        <div className="slider-container">
-          <button className="slider-btn prev" onClick={prevSlide} aria-label="Previous slide">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-          </button>
-          <div className="slider-content">
-            {slides.map((slide, index) => (
-              <div
-                key={slide.id}
-                className={`slide ${index === currentSlide ? 'active' : ''}`}
-                style={{ backgroundImage: `url(${slide.image})` }}
-              >
-                <div className="slide-overlay"></div>
-                <div className="slide-content">
-                  <h1>{slide.title}</h1>
-                  <p>{slide.subtitle}</p>
-                  <Link to="/products" className="btn-primary">Shop Now</Link>
-                </div>
+    <div className="home">
+      {/* Hero Section */}
+      <section className="home__hero">
+        <div className="home__slider">
+          {slides.map((slide, index) => (
+            <div
+              key={slide.id}
+              className={`home__slide ${index === currentSlide ? 'home__slide--active' : ''}`}
+              style={{ backgroundImage: `url(${slide.image})` }}
+            >
+              <div className="home__slide-overlay"></div>
+              <div className="home__slide-content">
+                <h1 className="home__slide-title">{slide.title}</h1>
+                <p className="home__slide-subtitle">{slide.subtitle}</p>
+                <p className="home__slide-description">{slide.description}</p>
+                <Link to="/products">
+                  <Button variant="primary" size="large">
+                    Shop Now
+                  </Button>
+                </Link>
               </div>
-            ))}
-          </div>
-          <button className="slider-btn next" onClick={nextSlide} aria-label="Next slide">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
-        </div>
-      </section>
-
-      {/* Latest Arrival */}
-      <section className="section latest-arrival">
-        <div className="container">
-          <div className="section-header">
-            <h2>Latest Arrival</h2>
-            <Link to="/products" className="link-more">Explore More</Link>
-          </div>
-          <div className="product-grid">
-            {featuredProducts.map((product, index) => (
-              <Link key={product.id} to={`/products/${product.id}`} className="product-card-link">
-                <div className="product-card">
-                  <div className="product-image" style={{ backgroundImage: `url(${product.images[0]})` }}>
-                    {product.badge && <span className="product-badge">{product.badge}</span>}
-                  </div>
-                  <div className="product-info">
-                    <div className="delivery-info">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8z"></path>
-                        <circle cx="5.5" cy="18.5" r="2.5"></circle>
-                        <circle cx="18.5" cy="18.5" r="2.5"></circle>
-                      </svg>
-                      <span>Free Delivery</span>
-                    </div>
-                    <h3>{product.name}</h3>
-                    <p className="product-price">{formatCurrency(product.price, 'LKR')}</p>
-                    <div className="installment-options">
-                      <p className="installment-text">or 3 installments of {formatCurrency(product.price / 3, 'LKR')} with</p>
-                      <span className="payment-logo">KOKO</span>
-                    </div>
-                    <div className="installment-options">
-                      <p className="installment-text">or 4 installments of {formatCurrency(product.price / 4, 'LKR')} with</p>
-                      <span className="payment-logo">PayZy</span>
-                    </div>
-                    <div className="color-indicator" style={{ backgroundColor: '#000000' }}></div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Collections */}
-      <section className="section collections">
-        <div className="container">
-          <div className="collection-grid">
-            <Link to="/products?category=women" className="collection-card large">
-              <h3>Women's Collection</h3>
-              <span className="btn-outline">View Collection</span>
-            </Link>
-            <Link to="/products?category=men" className="collection-card">
-              <h3>Men's Collection</h3>
-              <span className="btn-outline">View Collection</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Best Selling */}
-      <section className="section best-selling">
-        <div className="container">
-          <div className="section-header">
-            <div>
-              <h2>Best Selling</h2>
-              <p className="section-subtitle">Our Most Loved Looks</p>
             </div>
-            <Link to="/products" className="link-more">View All</Link>
+          ))}
+          <div className="home__slider-controls">
+            <button
+              className="home__slider-btn"
+              onClick={() => setCurrentSlide((prev) => (prev - 1 + 3) % 3)}
+              aria-label="Previous slide"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            <button
+              className="home__slider-btn"
+              onClick={() => setCurrentSlide((prev) => (prev + 1) % 3)}
+              aria-label="Next slide"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
           </div>
-          <div className="product-grid">
-            {bestSelling.map((product, index) => (
-              <Link key={product.id} to={`/products/${product.id}`} className="product-card-link">
-                <div className="product-card">
-                  <div className="product-image" style={{ backgroundImage: `url(${product.images[0]})` }}>
-                    <div className="product-image-overlay"></div>
-                  </div>
-                  <div className="product-info">
-                    <div className="delivery-info">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8z"></path>
-                        <circle cx="5.5" cy="18.5" r="2.5"></circle>
-                        <circle cx="18.5" cy="18.5" r="2.5"></circle>
-                      </svg>
-                      <span>Free Delivery</span>
-                    </div>
-                    <h3>{product.name}</h3>
-                    <p className="product-price">{formatCurrency(product.price, 'LKR')}</p>
-                    <div className="installment-options">
-                      <p className="installment-text">or 3 installments of {formatCurrency(product.price / 3, 'LKR')} with</p>
-                      <span className="payment-logo">KOKO</span>
-                    </div>
-                    <div className="installment-options">
-                      <p className="installment-text">or 4 installments of {formatCurrency(product.price / 4, 'LKR')} with</p>
-                      <span className="payment-logo">PayZy</span>
-                    </div>
-                    <div className="color-indicator" style={{ backgroundColor: index === 0 ? '#ffffff' : index === 1 ? '#808080' : index === 2 ? '#000080' : '#ffffff' }}></div>
-                  </div>
-                </div>
-              </Link>
+          <div className="home__slider-dots">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                className={`home__slider-dot ${index === currentSlide ? 'home__slider-dot--active' : ''}`}
+                onClick={() => setCurrentSlide(index)}
+                aria-label={`Go to slide ${index + 1}`}
+              />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Products */}
+      <section className="section">
+        <div className="container">
+          <div className="section__header">
+            <h2 className="section__title">Featured Collection</h2>
+            <Link to="/products" className="section__link">
+              View All →
+            </Link>
+          </div>
+          <div className="products-grid">
+            {featuredProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                onAddToCart={handleQuickAdd}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Best Sellers */}
+      <section className="section section--alt">
+        <div className="container">
+          <div className="section__header">
+            <div>
+              <h2 className="section__title">Best Sellers</h2>
+              <p className="section__subtitle">Our most loved crop tops</p>
+            </div>
+            <Link to="/products" className="section__link">
+              View All →
+            </Link>
+          </div>
+          <div className="products-grid">
+            {bestSelling.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                onAddToCart={handleQuickAdd}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="home__cta">
+        <div className="container">
+          <div className="home__cta-content">
+            <h2 className="home__cta-title">Ready to Find Your Perfect Crop Top?</h2>
+            <p className="home__cta-text">
+              Explore our complete collection and discover styles that match your personality
+            </p>
+            <Link to="/products">
+              <Button variant="outline" size="large">
+                Browse Collection
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
     </div>
-  )
-}
-
+  );
+};

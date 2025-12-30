@@ -1,0 +1,121 @@
+/* Toast Notification Styles */
+
+.toast-container {
+  position: fixed;
+  top: 100px;
+  right: var(--spacing-md);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 300px;
+  max-width: 400px;
+  padding: var(--spacing-md);
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xl);
+  animation: slideInRight 0.3s ease-out;
+  pointer-events: auto;
+  border-left: 4px solid;
+}
+
+.toast--success {
+  border-left-color: var(--primary-teal);
+}
+
+.toast--error {
+  border-left-color: #ef4444;
+}
+
+.toast--info {
+  border-left-color: var(--primary-teal);
+}
+
+.toast__content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex: 1;
+}
+
+.toast__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.toast--success .toast__icon {
+  background-color: var(--primary-teal);
+  color: var(--white);
+}
+
+.toast--error .toast__icon {
+  background-color: #ef4444;
+  color: var(--white);
+}
+
+.toast--info .toast__icon {
+  background-color: var(--primary-teal);
+  color: var(--white);
+}
+
+.toast__message {
+  color: var(--black);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.toast__close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--grey-dark);
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition-fast);
+}
+
+.toast__close:hover {
+  color: var(--black);
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .toast-container {
+    right: var(--spacing-sm);
+    left: var(--spacing-sm);
+  }
+  
+  .toast {
+    min-width: auto;
+    max-width: 100%;
+  }
+}
+

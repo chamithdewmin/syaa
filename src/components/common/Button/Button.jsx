@@ -1,9 +1,8 @@
-import styles from './Button.module.css';
-import PropTypes from 'prop-types';
+import './Button.css';
 
 /**
  * Reusable Button Component
- * Supports multiple variants and sizes
+ * Supports multiple variants and sizes with modern animations
  */
 export const Button = ({
   children,
@@ -13,12 +12,15 @@ export const Button = ({
   disabled = false,
   type = 'button',
   className = '',
+  fullWidth = false,
   ...props
 }) => {
   const buttonClasses = [
-    styles.button,
-    styles[variant],
-    styles[size],
+    'btn',
+    `btn--${variant}`,
+    `btn--${size}`,
+    fullWidth && 'btn--full-width',
+    disabled && 'btn--disabled',
     className,
   ].filter(Boolean).join(' ');
 
@@ -30,18 +32,8 @@ export const Button = ({
       disabled={disabled}
       {...props}
     >
-      {children}
+      <span className="btn-content">{children}</span>
+      <span className="btn-ripple"></span>
     </button>
   );
 };
-
-Button.propTypes = {
-  children: PropTypes.node.isRequired,
-  variant: PropTypes.oneOf(['primary', 'secondary', 'outline', 'danger']),
-  size: PropTypes.oneOf(['small', 'medium', 'large']),
-  onClick: PropTypes.func,
-  disabled: PropTypes.bool,
-  type: PropTypes.oneOf(['button', 'submit', 'reset']),
-  className: PropTypes.string,
-};
-

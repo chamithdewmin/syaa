@@ -1,202 +1,237 @@
 /**
- * Product Data - Mock data for e-commerce website
- * In production, this would come from an API
+ * Product Data - Crop Tops Only
+ * Mock data for e-commerce website
  */
 
 export const products = [
   {
     id: 1,
-    name: "White DKDC T-Shirt with Contrast Sleeve Tape",
+    name: "Classic White Crop Top",
     price: 2395.00,
     originalPrice: 2995.00,
     images: [
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=600&fit=crop"
+      "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600&h=800&fit=crop"
     ],
-    category: "men",
-    subcategory: "t-shirts",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["White", "Black", "Grey"],
+    category: "crop-tops",
+    sizes: ["XS", "S", "M", "L"],
+    colors: ["White", "Black", "Beige"],
     inStock: true,
     rating: 4.5,
     reviews: 128,
-    description: "Premium quality cotton t-shirt with contrast sleeve tape detailing. Perfect for casual wear.",
-    features: ["100% Cotton", "Machine Washable", "Comfortable Fit"],
-    badge: null
+    description: "Premium quality cotton crop top with a modern fit. Perfect for layering or wearing alone. Soft, breathable fabric that feels comfortable all day.",
+    features: ["100% Premium Cotton", "Machine Washable", "Comfortable Fit", "Versatile Styling"],
+    badge: "Sale"
   },
   {
     id: 2,
-    name: "Grey Heathered Regular Fit T-Shirt",
-    price: 4295.00,
+    name: "Ribbed Teal Crop Top",
+    price: 2895.00,
     originalPrice: null,
     images: [
-      "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=600&fit=crop"
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=600&h=800&fit=crop"
     ],
-    category: "men",
-    subcategory: "t-shirts",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    colors: ["Grey", "Navy"],
+    category: "crop-tops",
+    sizes: ["XS", "S", "M", "L"],
+    colors: ["Teal", "Black", "White"],
     inStock: true,
     rating: 4.7,
     reviews: 89,
-    description: "Comfortable regular fit t-shirt in grey heathered fabric. Great for everyday wear.",
-    features: ["Premium Cotton Blend", "Regular Fit", "Durable"],
-    badge: null
+    description: "Stylish ribbed crop top in our signature teal color. Features a flattering fit with stretch fabric for comfort and style.",
+    features: ["Ribbed Texture", "Stretch Fabric", "Signature Teal", "Modern Fit"],
+    badge: "New"
   },
   {
     id: 3,
-    name: "Puff Sleeve Ruffle Hem Floral Babydoll Mini Dress in Navy Blue",
-    price: 2795.00,
-    originalPrice: 3495.00,
+    name: "Puff Sleeve Floral Crop Top",
+    price: 3495.00,
+    originalPrice: 3995.00,
     images: [
-      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=400&h=600&fit=crop"
+      "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&h=800&fit=crop"
     ],
-    category: "women",
-    subcategory: "dresses",
+    category: "crop-tops",
     sizes: ["XS", "S", "M", "L"],
-    colors: ["Navy Blue", "Pink", "White"],
+    colors: ["White", "Pink", "Black"],
     inStock: true,
     rating: 4.8,
     reviews: 256,
-    description: "Beautiful floral print babydoll dress with puff sleeves and ruffle hem. Perfect for parties and special occasions.",
-    features: ["Floral Print", "Puff Sleeves", "Ruffle Hem", "Comfortable Fit"],
+    description: "Beautiful floral print crop top with statement puff sleeves. Perfect for adding a touch of elegance to your casual wardrobe.",
+    features: ["Floral Print", "Puff Sleeves", "Premium Fabric", "Elegant Design"],
     badge: "Sale"
   },
   {
     id: 4,
-    name: "White Ditsy Floral Print Puff Sleeve Crop Top",
-    price: 3895.00,
+    name: "Black Basic Crop Top",
+    price: 1995.00,
     originalPrice: null,
     images: [
-      "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=400&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=600&fit=crop"
+      "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600&h=800&fit=crop"
     ],
-    category: "women",
-    subcategory: "tops",
+    category: "crop-tops",
     sizes: ["XS", "S", "M", "L"],
-    colors: ["White", "Pink", "Yellow"],
+    colors: ["Black", "White", "Grey"],
     inStock: true,
     rating: 4.6,
     reviews: 192,
-    description: "Chic crop top with ditsy floral print and puff sleeves. Pair with high-waisted bottoms for a trendy look.",
-    features: ["Floral Print", "Puff Sleeves", "Crop Length", "Versatile"],
-    badge: "New"
+    description: "Essential black crop top that goes with everything. Classic design with modern fit. A wardrobe staple you'll reach for daily.",
+    features: ["Essential Staple", "Classic Design", "Versatile", "Comfortable"],
+    badge: null
   },
   {
     id: 5,
-    name: "Black Glitter Cowl Neck Midi Dress",
-    price: 5395.00,
+    name: "Lace Trim Crop Top",
+    price: 3895.00,
     originalPrice: null,
     images: [
-      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=600&fit=crop"
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=600&h=800&fit=crop"
     ],
-    category: "women",
-    subcategory: "dresses",
+    category: "crop-tops",
     sizes: ["XS", "S", "M", "L"],
-    colors: ["Black"],
+    colors: ["White", "Black", "Ivory"],
     inStock: true,
     rating: 4.9,
     reviews: 312,
-    description: "Elegant midi dress with cowl neck and glitter detailing. Perfect for evening events.",
-    features: ["Cowl Neck", "Midi Length", "Glitter Detailing", "Elegant"],
+    description: "Delicate lace trim crop top with feminine details. Perfect for special occasions or dressing up your everyday look.",
+    features: ["Lace Trim", "Feminine Design", "Premium Quality", "Elegant"],
     badge: "New"
   },
   {
     id: 6,
-    name: "Black Spaghetti Strap Bodycon Slit Dress",
-    price: 5795.00,
+    name: "Oversized Teal Crop Top",
+    price: 3195.00,
     originalPrice: null,
     images: [
-      "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=400&h=600&fit=crop"
+      "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&h=800&fit=crop"
     ],
-    category: "women",
-    subcategory: "dresses",
+    category: "crop-tops",
     sizes: ["XS", "S", "M", "L"],
-    colors: ["Black", "Red"],
+    colors: ["Teal", "Black", "White"],
     inStock: true,
     rating: 4.7,
     reviews: 201,
-    description: "Stylish bodycon dress with spaghetti straps and side slit. Flattering fit for all body types.",
-    features: ["Bodycon Fit", "Spaghetti Straps", "Side Slit", "Stretchy Fabric"],
+    description: "Relaxed fit crop top in our signature teal. Oversized silhouette for a modern, effortless look.",
+    features: ["Oversized Fit", "Signature Teal", "Relaxed Silhouette", "Modern Style"],
     badge: "New"
   },
   {
     id: 7,
-    name: "Metallic Ruffled V-Neck Long Sleeve Mini Dress",
-    price: 6595.00,
+    name: "Striped Crop Top",
+    price: 2695.00,
     originalPrice: null,
     images: [
-      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=600&fit=crop"
+      "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600&h=800&fit=crop"
     ],
-    category: "women",
-    subcategory: "dresses",
+    category: "crop-tops",
     sizes: ["XS", "S", "M", "L"],
-    colors: ["Silver", "Gold", "Rose Gold"],
+    colors: ["Black/White", "Teal/White", "Navy/White"],
     inStock: true,
     rating: 4.8,
     reviews: 167,
-    description: "Glamorous metallic mini dress with ruffled details and V-neck. Perfect for parties.",
-    features: ["Metallic Finish", "Ruffled Details", "Long Sleeves", "V-Neck"],
-    badge: "New"
+    description: "Classic striped crop top with a modern twist. Timeless pattern that never goes out of style.",
+    features: ["Classic Stripes", "Timeless Design", "Versatile", "Comfortable"],
+    badge: null
   },
   {
     id: 8,
-    name: "Bodycon Mini Dress Forest Green",
-    price: 10995.00,
+    name: "Ribbed Knit Crop Top",
+    price: 2795.00,
     originalPrice: null,
     images: [
-      "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=400&h=600&fit=crop"
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=600&h=800&fit=crop"
     ],
-    category: "women",
-    subcategory: "dresses",
+    category: "crop-tops",
     sizes: ["XS", "S", "M", "L"],
-    colors: ["Forest Green", "Black"],
+    colors: ["Black", "White", "Grey"],
     inStock: true,
     rating: 4.6,
     reviews: 98,
-    description: "Vibrant forest green bodycon mini dress. Bold color for confident styling.",
-    features: ["Bodycon Fit", "Vibrant Color", "Stretchy", "Comfortable"],
-    badge: "New"
+    description: "Soft ribbed knit crop top with a comfortable fit. Perfect for layering or wearing on its own.",
+    features: ["Ribbed Knit", "Soft Fabric", "Comfortable", "Layering Piece"],
+    badge: null
   },
   {
     id: 9,
-    name: "Men's Casual Button-Down Shirt",
-    price: 5495.00,
+    name: "V-Neck Crop Top",
+    price: 2295.00,
     originalPrice: null,
     images: [
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=600&fit=crop"
+      "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&h=800&fit=crop"
     ],
-    category: "men",
-    subcategory: "shirts",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    colors: ["White", "Blue", "Grey"],
+    category: "crop-tops",
+    sizes: ["XS", "S", "M", "L"],
+    colors: ["White", "Black", "Teal"],
     inStock: true,
     rating: 4.5,
     reviews: 145,
-    description: "Classic casual button-down shirt. Versatile for work or casual occasions.",
-    features: ["100% Cotton", "Button-Down", "Classic Fit", "Versatile"],
+    description: "Flattering V-neck crop top with a classic design. Versatile piece that works for any occasion.",
+    features: ["V-Neck Design", "Flattering Fit", "Classic Style", "Versatile"],
     badge: null
   },
   {
     id: 10,
-    name: "Men's Slim Fit Chinos",
-    price: 6995.00,
+    name: "Long Sleeve Crop Top",
+    price: 3295.00,
     originalPrice: null,
     images: [
-      "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=600&fit=crop"
+      "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600&h=800&fit=crop"
     ],
-    category: "men",
-    subcategory: "pants",
-    sizes: ["28", "30", "32", "34", "36"],
-    colors: ["Khaki", "Navy", "Black"],
+    category: "crop-tops",
+    sizes: ["XS", "S", "M", "L"],
+    colors: ["Black", "White", "Teal"],
     inStock: true,
-    rating: 4.4,
+    rating: 4.7,
     reviews: 203,
-    description: "Comfortable slim fit chinos in premium fabric. Perfect for smart casual looks.",
-    features: ["Slim Fit", "Premium Fabric", "Comfortable", "Versatile"],
-    badge: null
+    description: "Stylish long sleeve crop top perfect for cooler weather. Modern design with comfortable fit.",
+    features: ["Long Sleeves", "Seasonal Piece", "Comfortable", "Modern Design"],
+    badge: "New"
+  },
+  {
+    id: 11,
+    name: "Tie-Dye Crop Top",
+    price: 3595.00,
+    originalPrice: null,
+    images: [
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=600&h=800&fit=crop"
+    ],
+    category: "crop-tops",
+    sizes: ["XS", "S", "M", "L"],
+    colors: ["Teal/White", "Pink/White", "Black/White"],
+    inStock: true,
+    rating: 4.8,
+    reviews: 178,
+    description: "Vibrant tie-dye crop top with unique patterns. Stand out with this eye-catching piece.",
+    features: ["Unique Pattern", "Vibrant Colors", "Statement Piece", "Comfortable"],
+    badge: "New"
+  },
+  {
+    id: 12,
+    name: "Mesh Detail Crop Top",
+    price: 4195.00,
+    originalPrice: null,
+    images: [
+      "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&h=800&fit=crop"
+    ],
+    category: "crop-tops",
+    sizes: ["XS", "S", "M", "L"],
+    colors: ["Black", "White", "Teal"],
+    inStock: true,
+    rating: 4.9,
+    reviews: 245,
+    description: "Edgy crop top with mesh detail panels. Modern design perfect for a bold fashion statement.",
+    features: ["Mesh Details", "Edgy Design", "Statement Piece", "Premium Quality"],
+    badge: "New"
   }
 ];
 
@@ -205,13 +240,6 @@ export const products = [
  */
 export const getProductsByCategory = (category) => {
   return products.filter(product => product.category === category);
-};
-
-/**
- * Get products by subcategory
- */
-export const getProductsBySubcategory = (subcategory) => {
-  return products.filter(product => product.subcategory === subcategory);
 };
 
 /**
@@ -248,3 +276,11 @@ export const getBestSellingProducts = () => {
     .slice(0, 4);
 };
 
+/**
+ * Get related products (excluding current product)
+ */
+export const getRelatedProducts = (currentProductId, limit = 4) => {
+  return products
+    .filter(product => product.id !== currentProductId)
+    .slice(0, limit);
+};

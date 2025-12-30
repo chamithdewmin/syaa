@@ -1,103 +1,95 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
-import { useCart } from '../contexts/CartContext'
-import './Header.css'
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useCart } from '../contexts/CartContext';
+import './Header.css';
 
 export const Header = () => {
-  const { getCartItemCount } = useCart()
-  const [searchQuery, setSearchQuery] = useState('')
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const navigate = useNavigate()
+  const { getCartItemCount } = useCart();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleSearch = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/products?search=${encodeURIComponent(searchQuery)}`)
-      setSearchQuery('')
+      navigate(`/products?search=${encodeURIComponent(searchQuery)}`);
+      setSearchQuery('');
+      setIsMobileMenuOpen(false);
     }
-  }
+  };
 
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen)
-  }
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false)
-  }
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <header className="header">
-      <div className="header-container">
-        <div className="logo">
-          <Link to="/" onClick={closeMobileMenu}>
-            <span className="logo-text">KANDY</span>
-            <span className="santa-hat">🎅</span>
+      <div className="header__container">
+        <Link to="/" className="header__logo" onClick={closeMobileMenu}>
+          <span className="header__logo-text">SAYAA</span>
+        </Link>
+
+        <nav className={`header__nav ${isMobileMenuOpen ? 'header__nav--open' : ''}`}>
+          <Link to="/" className="header__nav-link" onClick={closeMobileMenu}>
+            Home
           </Link>
-        </div>
-        <button 
-          className="mobile-menu-toggle"
-          onClick={toggleMobileMenu}
-          aria-label="Toggle menu"
-          aria-expanded={isMobileMenuOpen}
-        >
-          <span className={`hamburger ${isMobileMenuOpen ? 'active' : ''}`}>
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
-        </button>
-        <nav className={`nav-menu ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
-          <Link to="/" onClick={closeMobileMenu}>Home</Link>
-          <Link to="/products" onClick={closeMobileMenu}>Shop</Link>
-          <Link to="/products?category=women" className="has-dropdown" onClick={closeMobileMenu}>
-            Women
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
+          <Link to="/products" className="header__nav-link" onClick={closeMobileMenu}>
+            Shop
           </Link>
-          <Link to="/products?category=men" className="has-dropdown" onClick={closeMobileMenu}>
-            Men
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
+          <Link to="/about" className="header__nav-link" onClick={closeMobileMenu}>
+            About
           </Link>
-          <Link to="/products" className="offers-link" onClick={closeMobileMenu}>OFFERS</Link>
+          <Link to="/contact" className="header__nav-link" onClick={closeMobileMenu}>
+            Contact
+          </Link>
         </nav>
-        <div className="header-actions">
-          <form onSubmit={handleSearch} className="search-form">
+
+        <div className="header__actions">
+          <form onSubmit={handleSearch} className="header__search-form">
             <input
               type="text"
-              placeholder="Search products..."
+              placeholder="Search crop tops..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="search-input-header"
+              className="header__search-input"
             />
-            <button type="submit" className="icon-btn" aria-label="Search">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <button type="submit" className="header__search-btn" aria-label="Search">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="11" cy="11" r="8"></circle>
                 <path d="m21 21-4.35-4.35"></path>
               </svg>
             </button>
           </form>
-          <button className="icon-btn" aria-label="Account">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </button>
-          <Link to="/cart" className="icon-btn cart-btn" aria-label="Cart">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+
+          <Link to="/cart" className="header__cart-btn" aria-label="Cart">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="9" cy="21" r="1"></circle>
               <circle cx="20" cy="21" r="1"></circle>
               <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
             </svg>
             {getCartItemCount() > 0 && (
-              <span className="cart-badge">{getCartItemCount()}</span>
+              <span className="header__cart-badge">{getCartItemCount()}</span>
             )}
           </Link>
+
+          <button
+            className="header__menu-toggle"
+            onClick={toggleMobileMenu}
+            aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
+          >
+            <span className={`header__hamburger ${isMobileMenuOpen ? 'header__hamburger--active' : ''}`}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
         </div>
       </div>
     </header>
-  )
-}
-
+  );
+};

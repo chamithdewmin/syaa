@@ -1,189 +1,242 @@
-import { useState, useMemo, useEffect } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
-import { products } from '../data/products'
-import { formatCurrency } from '../utils/formatters'
-import './Products.css'
+import { useState, useMemo, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { products } from '../data/products';
+import { ProductCard } from '../components/common/ProductCard';
+import { useCart } from '../contexts/CartContext';
+import { useToast } from '../contexts/ToastContext';
+import './Products.css';
 
 export const Products = () => {
-  const [searchParams, setSearchParams] = useSearchParams()
-  const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || 'all')
-  const [selectedSubcategory, setSelectedSubcategory] = useState('all')
-  const [sortBy, setSortBy] = useState('featured')
-  const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
-  
-  useEffect(() => {
-    const category = searchParams.get('category')
-    const search = searchParams.get('search')
-    if (category) setSelectedCategory(category)
-    if (search) setSearchQuery(search)
-  }, [searchParams])
+  const { addToCart } = useCart();
+  const { addToast } = useToast();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [selectedColor, setSelectedColor] = useState('all');
+  const [selectedPrice, setSelectedPrice] = useState('all');
+  const [sortBy, setSortBy] = useState('featured');
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
+  const [showFilters, setShowFilters] = useState(false);
 
-  const categories = ['all', 'women', 'men']
-  const subcategories = {
-    women: ['all', 'dresses', 'tops', 'blouses'],
-    men: ['all', 't-shirts', 'shirts', 'pants'],
-  }
+  useEffect(() => {
+    const search = searchParams.get('search');
+    if (search) setSearchQuery(search);
+  }, [searchParams]);
+
+  // Get unique colors from products
+  const availableColors = useMemo(() => {
+    const colors = new Set();
+    products.forEach(product => {
+      product.colors.forEach(color => colors.add(color));
+    });
+    return Array.from(colors).sort();
+  }, []);
 
   const filteredProducts = useMemo(() => {
-    let filtered = products
+    let filtered = products;
 
     // Search filter
     if (searchQuery) {
       filtered = filtered.filter(product =>
         product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         product.description.toLowerCase().includes(searchQuery.toLowerCase())
-      )
+      );
     }
 
-    // Category filter
-    if (selectedCategory !== 'all') {
-      filtered = filtered.filter(product => product.category === selectedCategory)
+    // Color filter
+    if (selectedColor !== 'all') {
+      filtered = filtered.filter(product => product.colors.includes(selectedColor));
     }
 
-    // Subcategory filter
-    if (selectedSubcategory !== 'all') {
-      filtered = filtered.filter(product => product.subcategory === selectedSubcategory)
+    // Price filter
+    if (selectedPrice !== 'all') {
+      const [min, max] = selectedPrice.split('-').map(Number);
+      filtered = filtered.filter(product => {
+        if (max) {
+          return product.price >= min && product.price <= max;
+        }
+        return product.price >= min;
+      });
     }
 
     // Sort
     switch (sortBy) {
       case 'price-low':
-        filtered = [...filtered].sort((a, b) => a.price - b.price)
-        break
+        filtered = [...filtered].sort((a, b) => a.price - b.price);
+        break;
       case 'price-high':
-        filtered = [...filtered].sort((a, b) => b.price - a.price)
-        break
+        filtered = [...filtered].sort((a, b) => b.price - a.price);
+        break;
       case 'rating':
-        filtered = [...filtered].sort((a, b) => b.rating - a.rating)
-        break
+        filtered = [...filtered].sort((a, b) => b.rating - a.rating);
+        break;
       case 'newest':
-        filtered = [...filtered].filter(p => p.badge === 'New')
-        break
+        filtered = [...filtered].filter(p => p.badge === 'New');
+        break;
       default:
         // Featured/default order
-        break
+        break;
     }
 
-    return filtered
-  }, [selectedCategory, selectedSubcategory, sortBy, searchQuery])
+    return filtered;
+  }, [selectedColor, selectedPrice, sortBy, searchQuery]);
+
+  const handleQuickAdd = (product) => {
+    addToCart(product, product.sizes[0], product.colors[0], 1);
+    addToast(`${product.name} added to cart!`, 'success');
+  };
+
+  const clearFilters = () => {
+    setSelectedColor('all');
+    setSelectedPrice('all');
+    setSortBy('featured');
+    setSearchQuery('');
+  };
 
   return (
     <div className="products-page">
-      <div className="products-header">
-        <h1>Shop All Products</h1>
-        <p>Discover our complete collection</p>
+      <div className="products-page__header">
+        <div className="container">
+          <h1 className="products-page__title">Shop Crop Tops</h1>
+          <p className="products-page__subtitle">Discover our complete collection</p>
+        </div>
       </div>
 
-      <div className="products-container">
-        {/* Filters Sidebar */}
-        <aside className="products-filters">
-          <div className="filter-section">
-            <h3>Search</h3>
-            <input
-              type="text"
-              placeholder="Search products..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="search-input"
-            />
-          </div>
-
-          <div className="filter-section">
-            <h3>Category</h3>
-            {categories.map(category => (
+      <div className="container">
+        <div className="products-page__content">
+          {/* Filters Sidebar */}
+          <aside className={`products-page__filters ${showFilters ? 'products-page__filters--open' : ''}`}>
+            <div className="products-page__filters-header">
+              <h3>Filters</h3>
               <button
-                key={category}
-                className={`filter-btn ${selectedCategory === category ? 'active' : ''}`}
-                onClick={() => {
-                  setSelectedCategory(category)
-                  setSelectedSubcategory('all')
-                }}
+                className="products-page__filters-close"
+                onClick={() => setShowFilters(false)}
+                aria-label="Close filters"
               >
-                {category.charAt(0).toUpperCase() + category.slice(1)}
+                ×
               </button>
-            ))}
-          </div>
-
-          {selectedCategory !== 'all' && (
-            <div className="filter-section">
-              <h3>Type</h3>
-              {subcategories[selectedCategory]?.map(subcategory => (
-                <button
-                  key={subcategory}
-                  className={`filter-btn ${selectedSubcategory === subcategory ? 'active' : ''}`}
-                  onClick={() => setSelectedSubcategory(subcategory)}
-                >
-                  {subcategory.charAt(0).toUpperCase() + subcategory.slice(1).replace('-', ' ')}
-                </button>
-              ))}
             </div>
-          )}
 
-          <div className="filter-section">
-            <h3>Sort By</h3>
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="sort-select"
-            >
-              <option value="featured">Featured</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-              <option value="rating">Highest Rated</option>
-              <option value="newest">Newest</option>
-            </select>
-          </div>
-        </aside>
+            <div className="products-page__filter-section">
+              <h4>Search</h4>
+              <input
+                type="text"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="products-page__search-input"
+              />
+            </div>
 
-        {/* Products Grid */}
-        <main className="products-grid-container">
-          <div className="products-count">
-            {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'} found
-          </div>
-          <div className="products-grid">
-            {filteredProducts.map(product => (
-              <Link
-                key={product.id}
-                to={`/products/${product.id}`}
-                className="product-card-link"
-              >
-                <div className="product-card">
-                  <div className="product-image" style={{ backgroundImage: `url(${product.images[0]})` }}>
-                    {product.badge && <span className="product-badge">{product.badge}</span>}
-                    {product.originalPrice && (
-                      <span className="discount-badge">
-                        {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
-                      </span>
-                    )}
-                  </div>
-                  <div className="product-info">
-                    <div className="delivery-info">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8z"></path>
-                        <circle cx="5.5" cy="18.5" r="2.5"></circle>
-                        <circle cx="18.5" cy="18.5" r="2.5"></circle>
-                      </svg>
-                      <span>Free Delivery</span>
-                    </div>
-                    <h3>{product.name}</h3>
-                    <div className="product-price-row">
-                      <p className="product-price">{formatCurrency(product.price, 'LKR')}</p>
-                      {product.originalPrice && (
-                        <p className="original-price">{formatCurrency(product.originalPrice, 'LKR')}</p>
-                      )}
-                    </div>
-                    <div className="product-rating">
-                      <span className="stars">★★★★★</span>
-                      <span className="rating-text">({product.rating})</span>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </main>
+            <div className="products-page__filter-section">
+              <h4>Color</h4>
+              <div className="products-page__color-filters">
+                <button
+                  className={`products-page__filter-btn ${selectedColor === 'all' ? 'products-page__filter-btn--active' : ''}`}
+                  onClick={() => setSelectedColor('all')}
+                >
+                  All
+                </button>
+                {availableColors.map(color => (
+                  <button
+                    key={color}
+                    className={`products-page__filter-btn ${selectedColor === color ? 'products-page__filter-btn--active' : ''}`}
+                    onClick={() => setSelectedColor(color)}
+                  >
+                    {color}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="products-page__filter-section">
+              <h4>Price</h4>
+              <div className="products-page__price-filters">
+                <button
+                  className={`products-page__filter-btn ${selectedPrice === 'all' ? 'products-page__filter-btn--active' : ''}`}
+                  onClick={() => setSelectedPrice('all')}
+                >
+                  All Prices
+                </button>
+                <button
+                  className={`products-page__filter-btn ${selectedPrice === '0-2000' ? 'products-page__filter-btn--active' : ''}`}
+                  onClick={() => setSelectedPrice('0-2000')}
+                >
+                  Under LKR 2,000
+                </button>
+                <button
+                  className={`products-page__filter-btn ${selectedPrice === '2000-3000' ? 'products-page__filter-btn--active' : ''}`}
+                  onClick={() => setSelectedPrice('2000-3000')}
+                >
+                  LKR 2,000 - 3,000
+                </button>
+                <button
+                  className={`products-page__filter-btn ${selectedPrice === '3000-4000' ? 'products-page__filter-btn--active' : ''}`}
+                  onClick={() => setSelectedPrice('3000-4000')}
+                >
+                  LKR 3,000 - 4,000
+                </button>
+                <button
+                  className={`products-page__filter-btn ${selectedPrice === '4000' ? 'products-page__filter-btn--active' : ''}`}
+                  onClick={() => setSelectedPrice('4000')}
+                >
+                  Over LKR 4,000
+                </button>
+              </div>
+            </div>
+
+            <button className="products-page__clear-filters" onClick={clearFilters}>
+              Clear All Filters
+            </button>
+          </aside>
+
+          {/* Products Grid */}
+          <main className="products-page__main">
+            <div className="products-page__toolbar">
+              <div className="products-page__results">
+                {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'} found
+              </div>
+              <div className="products-page__toolbar-right">
+                <button
+                  className="products-page__filters-toggle"
+                  onClick={() => setShowFilters(!showFilters)}
+                >
+                  Filters
+                </button>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="products-page__sort"
+                >
+                  <option value="featured">Featured</option>
+                  <option value="price-low">Price: Low to High</option>
+                  <option value="price-high">Price: High to Low</option>
+                  <option value="rating">Highest Rated</option>
+                  <option value="newest">Newest</option>
+                </select>
+              </div>
+            </div>
+
+            {filteredProducts.length === 0 ? (
+              <div className="products-page__empty">
+                <h3>No products found</h3>
+                <p>Try adjusting your filters or search terms</p>
+                <button onClick={clearFilters} className="products-page__clear-filters">
+                  Clear Filters
+                </button>
+              </div>
+            ) : (
+              <div className="products-grid">
+                {filteredProducts.map(product => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    onAddToCart={handleQuickAdd}
+                  />
+                ))}
+              </div>
+            )}
+          </main>
+        </div>
       </div>
     </div>
-  )
-}
-
+  );
+};
