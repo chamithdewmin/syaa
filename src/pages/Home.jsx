@@ -72,19 +72,7 @@ export const Home = () => {
               key={slide.id}
               className={`home__slide ${index === currentSlide ? 'home__slide--active' : ''}`}
               style={{ backgroundImage: `url(${slide.image})` }}
-            >
-              <div className="home__slide-overlay"></div>
-              <div className="home__slide-content">
-                <h1 className="home__slide-title">{slide.title}</h1>
-                <p className="home__slide-subtitle">{slide.subtitle}</p>
-                <p className="home__slide-description">{slide.description}</p>
-                <Link to="/products">
-                  <Button variant="primary" size="large">
-                    Shop Now
-                  </Button>
-                </Link>
-              </div>
-            </div>
+            />
           ))}
           <div className="home__slider-controls">
             <button

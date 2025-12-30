@@ -108,6 +108,13 @@ export const Products = () => {
 
       <div className="container">
         <div className="products-page__content">
+          {/* Overlay for mobile filters */}
+          {showFilters && (
+            <div 
+              className={`products-page__filters-overlay ${showFilters ? 'products-page__filters-overlay--open' : ''}`}
+              onClick={() => setShowFilters(false)}
+            />
+          )}
           {/* Filters Sidebar */}
           <aside className={`products-page__filters ${showFilters ? 'products-page__filters--open' : ''}`} data-animate="fade-in-left">
             <div className="products-page__filters-header">
@@ -205,7 +212,12 @@ export const Products = () => {
                   className="products-page__filters-toggle"
                   onClick={() => setShowFilters(!showFilters)}
                 >
-                  Filters
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="4" y1="6" x2="20" y2="6"></line>
+                    <line x1="4" y1="12" x2="20" y2="12"></line>
+                    <line x1="4" y1="18" x2="20" y2="18"></line>
+                  </svg>
+                  <span>Filter</span>
                 </button>
                 <select
                   value={sortBy}

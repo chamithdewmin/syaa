@@ -34,10 +34,13 @@
   background: var(--white);
   border-radius: var(--radius-lg);
   padding: var(--spacing-lg);
-  height: fit-content;
+  height: calc(100vh - 120px);
+  max-height: calc(100vh - 120px);
   position: sticky;
   top: 100px;
   box-shadow: var(--shadow-sm);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .products-page__filters-header {
@@ -168,14 +171,28 @@
 }
 
 .products-page__filters-toggle {
-  display: none;
-  padding: 0.5rem 1rem;
-  background: var(--primary-teal);
-  color: var(--white);
-  border: none;
+  display: none; /* Hidden on desktop */
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 0.75rem 1.25rem;
+  background: var(--white);
+  color: var(--black);
+  border: 1px solid var(--grey-medium);
   border-radius: var(--radius-md);
   font-weight: 600;
+  font-size: 0.875rem;
   cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.products-page__filters-toggle:hover {
+  background: var(--grey-light);
+  border-color: var(--primary-teal);
+}
+
+.products-page__filters-toggle svg {
+  flex-shrink: 0;
+  stroke: currentColor;
 }
 
 .products-page__sort {
@@ -207,6 +224,91 @@
   margin-bottom: var(--spacing-lg);
 }
 
+/* Products Grid - 4 columns for shop page with smaller cards */
+.products-page .products-grid {
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-md);
+}
+
+@media (max-width: 1400px) {
+  .products-page .products-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-md);
+  }
+}
+
+@media (max-width: 1200px) {
+  .products-page .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+  }
+}
+
+@media (max-width: 968px) {
+  .products-page .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 768px) {
+  .products-page .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .products-page .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+  }
+}
+
+/* Smaller card sizes for shop page */
+.products-page .product-card__image-wrapper {
+  padding-top: 120%;
+}
+
+.products-page .product-card__info {
+  padding: var(--spacing-sm);
+  gap: var(--spacing-xs);
+}
+
+.products-page .product-card__name {
+  font-size: 0.9375rem;
+}
+
+.products-page .product-card__rating {
+  font-size: 0.875rem;
+}
+
+.products-page .product-card__stars {
+  font-size: 0.875rem;
+}
+
+.products-page .product-card__rating-value {
+  font-size: 0.875rem;
+}
+
+.products-page .product-card__price-current {
+  font-size: 1.125rem;
+}
+
+.products-page .product-card__badge {
+  top: var(--spacing-xs);
+  left: var(--spacing-xs);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.6875rem;
+}
+
+.products-page .product-card__discount {
+  top: var(--spacing-xs);
+  right: var(--spacing-xs);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.6875rem;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .products-page__content {
@@ -219,20 +321,33 @@
     grid-template-columns: 1fr;
   }
 
+  /* Hide filters sidebar by default on mobile */
   .products-page__filters {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+    width: 320px;
+    max-width: 85vw;
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
     z-index: 1000;
     overflow-y: auto;
     transform: translateX(-100%);
     transition: transform var(--transition-base);
     border-radius: 0;
+    box-shadow: var(--shadow-xl);
+    display: none; /* Hidden by default */
+    visibility: hidden;
+    opacity: 0;
+    padding: var(--spacing-lg);
   }
 
+  /* Show filters sidebar when open */
   .products-page__filters--open {
+    display: block;
+    visibility: visible;
+    opacity: 1;
     transform: translateX(0);
   }
 
@@ -240,8 +355,28 @@
     display: flex;
   }
 
+  /* Show filter button only on mobile */
   .products-page__filters-toggle {
-    display: block;
+    display: flex;
+  }
+
+  /* Overlay when filters are open */
+  .products-page__filters-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-base), visibility var(--transition-base);
+  }
+
+  .products-page__filters-overlay--open {
+    opacity: 1;
+    visibility: visible;
   }
 
   .products-page__toolbar {
