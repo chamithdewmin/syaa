@@ -19,6 +19,8 @@ export const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState(product?.sizes[0] || '');
   const [selectedColor, setSelectedColor] = useState(product?.colors[0] || '');
   const [quantity, setQuantity] = useState(1);
+  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     // Scroll to top immediately when product detail page loads
@@ -66,17 +68,40 @@ export const ProductDetail = () => {
     navigate('/cart');
   };
 
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setMousePosition({ x, y });
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+  };
+
   return (
     <div className="product-detail-page">
       <div className="container">
         <div className="product-detail">
           {/* Product Images */}
           <div className="product-detail__images" data-animate="fade-in-left">
-            <div className="product-detail__main-image">
+            <div 
+              className="product-detail__main-image"
+              onMouseMove={handleMouseMove}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
               <img
                 src={product.images[selectedImage]}
                 alt={product.name}
                 className="product-detail__image"
+                style={{
+                  transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`
+                }}
               />
               {product.badge && (
                 <span className={`product-detail__badge product-detail__badge--${product.badge.toLowerCase()}`}>
