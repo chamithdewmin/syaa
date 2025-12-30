@@ -164,22 +164,6 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="home__cta" data-animate="fade-in-up">
-        <div className="container">
-          <div className="home__cta-content">
-            <h2 className="home__cta-title" data-animate="fade-in">Ready to Find Your Perfect Crop Top?</h2>
-            <p className="home__cta-text" data-animate="fade-in">
-              Explore our complete collection and discover styles that match your personality
-            </p>
-            <Link to="/products" data-animate="scale-in">
-              <Button variant="outline" size="large">
-                Browse Collection
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };
