@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { getProductById, getRelatedProducts } from '../data/products';
 import { useCart } from '../contexts/CartContext';
@@ -6,6 +6,7 @@ import { useToast } from '../contexts/ToastContext';
 import { formatCurrency } from '../utils/formatters';
 import { Button } from '../components/common/Button';
 import { ProductCard } from '../components/common/ProductCard';
+import { setupScrollAnimations } from '../utils/animations';
 import './ProductDetail.css';
 
 export const ProductDetail = () => {
@@ -18,6 +19,14 @@ export const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState(product?.sizes[0] || '');
   const [selectedColor, setSelectedColor] = useState(product?.colors[0] || '');
   const [quantity, setQuantity] = useState(1);
+
+  useEffect(() => {
+    // Scroll to top immediately when product detail page loads
+    window.scrollTo(0, 0);
+    
+    const cleanup = setupScrollAnimations();
+    return cleanup;
+  }, [product, id]);
 
   if (!product) {
     return (
@@ -62,7 +71,7 @@ export const ProductDetail = () => {
       <div className="container">
         <div className="product-detail">
           {/* Product Images */}
-          <div className="product-detail__images">
+          <div className="product-detail__images" data-animate="fade-in-left">
             <div className="product-detail__main-image">
               <img
                 src={product.images[selectedImage]}
@@ -94,7 +103,7 @@ export const ProductDetail = () => {
           </div>
 
           {/* Product Info */}
-          <div className="product-detail__info">
+          <div className="product-detail__info" data-animate="fade-in-right">
             <h1 className="product-detail__name">{product.name}</h1>
 
             <div className="product-detail__rating">
@@ -212,9 +221,9 @@ export const ProductDetail = () => {
 
         {/* Related Products */}
         {relatedProducts.length > 0 && (
-          <section className="product-detail__related">
-            <h2 className="section__title">You May Also Like</h2>
-            <div className="products-grid">
+          <section className="product-detail__related" data-animate="fade-in-up">
+            <h2 className="section__title" data-animate="fade-in">You May Also Like</h2>
+            <div className="products-grid animate-stagger">
               {relatedProducts.map(relatedProduct => (
                 <ProductCard key={relatedProduct.id} product={relatedProduct} />
               ))}

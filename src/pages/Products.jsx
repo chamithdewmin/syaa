@@ -4,6 +4,7 @@ import { products } from '../data/products';
 import { ProductCard } from '../components/common/ProductCard';
 import { useCart } from '../contexts/CartContext';
 import { useToast } from '../contexts/ToastContext';
+import { setupScrollAnimations } from '../utils/animations';
 import './Products.css';
 
 export const Products = () => {
@@ -79,6 +80,11 @@ export const Products = () => {
     return filtered;
   }, [selectedColor, selectedPrice, sortBy, searchQuery]);
 
+  useEffect(() => {
+    const cleanup = setupScrollAnimations();
+    return cleanup;
+  }, [filteredProducts]);
+
   const handleQuickAdd = (product) => {
     addToCart(product, product.sizes[0], product.colors[0], 1);
     addToast(`${product.name} added to cart!`, 'success');
@@ -93,7 +99,7 @@ export const Products = () => {
 
   return (
     <div className="products-page">
-      <div className="products-page__header">
+      <div className="products-page__header" data-animate="fade-in-down">
         <div className="container">
           <h1 className="products-page__title">Shop Crop Tops</h1>
           <p className="products-page__subtitle">Discover our complete collection</p>
@@ -103,7 +109,7 @@ export const Products = () => {
       <div className="container">
         <div className="products-page__content">
           {/* Filters Sidebar */}
-          <aside className={`products-page__filters ${showFilters ? 'products-page__filters--open' : ''}`}>
+          <aside className={`products-page__filters ${showFilters ? 'products-page__filters--open' : ''}`} data-animate="fade-in-left">
             <div className="products-page__filters-header">
               <h3>Filters</h3>
               <button
@@ -189,8 +195,8 @@ export const Products = () => {
           </aside>
 
           {/* Products Grid */}
-          <main className="products-page__main">
-            <div className="products-page__toolbar">
+          <main className="products-page__main" data-animate="fade-in-right">
+            <div className="products-page__toolbar" data-animate="fade-in">
               <div className="products-page__results">
                 {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'} found
               </div>
@@ -216,7 +222,7 @@ export const Products = () => {
             </div>
 
             {filteredProducts.length === 0 ? (
-              <div className="products-page__empty">
+              <div className="products-page__empty" data-animate="fade-in-up">
                 <h3>No products found</h3>
                 <p>Try adjusting your filters or search terms</p>
                 <button onClick={clearFilters} className="products-page__clear-filters">
@@ -224,7 +230,7 @@ export const Products = () => {
                 </button>
               </div>
             ) : (
-              <div className="products-grid">
+              <div className="products-grid animate-stagger">
                 {filteredProducts.map(product => (
                   <ProductCard
                     key={product.id}

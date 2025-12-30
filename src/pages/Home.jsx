@@ -6,6 +6,7 @@ import { ProductCard } from '../components/common/ProductCard';
 import { Button } from '../components/common/Button';
 import { useCart } from '../contexts/CartContext';
 import { useToast } from '../contexts/ToastContext';
+import { setupScrollAnimations } from '../utils/animations';
 import './Home.css';
 
 export const Home = () => {
@@ -26,6 +27,11 @@ export const Home = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const cleanup = setupScrollAnimations();
+    return cleanup;
+  }, [featuredProducts, bestSelling]);
 
   const slides = [
     {
@@ -114,15 +120,15 @@ export const Home = () => {
       </section>
 
       {/* Featured Products */}
-      <section className="section">
+      <section className="section" data-animate="fade-in-up">
         <div className="container">
-          <div className="section__header">
+          <div className="section__header" data-animate="fade-in">
             <h2 className="section__title">Featured Collection</h2>
             <Link to="/products" className="section__link">
               View All →
             </Link>
           </div>
-          <div className="products-grid">
+          <div className="products-grid animate-stagger">
             {featuredProducts.map((product) => (
               <ProductCard
                 key={product.id}
@@ -135,9 +141,9 @@ export const Home = () => {
       </section>
 
       {/* Best Sellers */}
-      <section className="section section--alt">
+      <section className="section section--alt" data-animate="fade-in-up">
         <div className="container">
-          <div className="section__header">
+          <div className="section__header" data-animate="fade-in">
             <div>
               <h2 className="section__title">Best Sellers</h2>
               <p className="section__subtitle">Our most loved crop tops</p>
@@ -146,7 +152,7 @@ export const Home = () => {
               View All →
             </Link>
           </div>
-          <div className="products-grid">
+          <div className="products-grid animate-stagger">
             {bestSelling.map((product) => (
               <ProductCard
                 key={product.id}
@@ -159,14 +165,14 @@ export const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="home__cta">
+      <section className="home__cta" data-animate="fade-in-up">
         <div className="container">
           <div className="home__cta-content">
-            <h2 className="home__cta-title">Ready to Find Your Perfect Crop Top?</h2>
-            <p className="home__cta-text">
+            <h2 className="home__cta-title" data-animate="fade-in">Ready to Find Your Perfect Crop Top?</h2>
+            <p className="home__cta-text" data-animate="fade-in">
               Explore our complete collection and discover styles that match your personality
             </p>
-            <Link to="/products">
+            <Link to="/products" data-animate="scale-in">
               <Button variant="outline" size="large">
                 Browse Collection
               </Button>

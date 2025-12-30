@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useCart } from '../contexts/CartContext';
+import logoImage from '../assets/logo/2.png';
 import './Header.css';
 
 export const Header = () => {
@@ -30,7 +31,11 @@ export const Header = () => {
     <header className="header">
       <div className="header__container">
         <Link to="/" className="header__logo" onClick={closeMobileMenu}>
-          <span className="header__logo-text">SAYAA</span>
+          <img 
+            src={logoImage} 
+            alt="SAYAA Logo" 
+            className="header__logo-img"
+          />
         </Link>
 
         <nav className={`header__nav ${isMobileMenuOpen ? 'header__nav--open' : ''}`}>

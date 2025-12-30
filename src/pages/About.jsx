@@ -1,9 +1,16 @@
+import { useEffect } from 'react';
+import { setupScrollAnimations } from '../utils/animations';
 import './About.css';
 
 export const About = () => {
+  useEffect(() => {
+    const cleanup = setupScrollAnimations();
+    return cleanup;
+  }, []);
+
   return (
     <div className="about-page">
-      <div className="about-page__hero">
+      <div className="about-page__hero" data-animate="fade-in-down">
         <div className="container">
           <h1 className="about-page__title">About SAYAA</h1>
           <p className="about-page__subtitle">Your Destination for Premium Crop Tops</p>
@@ -11,7 +18,7 @@ export const About = () => {
       </div>
 
       <div className="container">
-        <section className="about-section">
+        <section className="about-section" data-animate="fade-in-up">
           <div className="about-section__content">
             <h2 className="about-section__title">Our Story</h2>
             <p className="about-section__text">
@@ -33,7 +40,7 @@ export const About = () => {
           </div>
         </section>
 
-        <section className="about-section about-section--reverse">
+        <section className="about-section about-section--reverse" data-animate="fade-in-up">
           <div className="about-section__content">
             <h2 className="about-section__title">Our Vision</h2>
             <p className="about-section__text">
@@ -55,9 +62,9 @@ export const About = () => {
           </div>
         </section>
 
-        <section className="about-values">
-          <h2 className="about-values__title">Our Values</h2>
-          <div className="about-values__grid">
+        <section className="about-values" data-animate="fade-in-up">
+          <h2 className="about-values__title" data-animate="fade-in">Our Values</h2>
+          <div className="about-values__grid animate-stagger">
             <div className="about-value">
               <div className="about-value__icon">✨</div>
               <h3 className="about-value__title">Quality First</h3>

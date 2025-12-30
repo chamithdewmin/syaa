@@ -1,21 +1,28 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
 import { formatCurrency } from '../utils/formatters';
 import { Button } from '../components/common/Button';
+import { setupScrollAnimations } from '../utils/animations';
 import './Cart.css';
 
 export const Cart = () => {
   const { cartItems, updateQuantity, removeFromCart, getCartTotal, clearCart } = useCart();
 
+  useEffect(() => {
+    const cleanup = setupScrollAnimations();
+    return cleanup;
+  }, [cartItems]);
+
   if (cartItems.length === 0) {
     return (
       <div className="cart-page">
         <div className="container">
-          <div className="cart-empty">
-            <div className="cart-empty__icon">🛒</div>
+          <div className="cart-empty" data-animate="fade-in-up">
+            <div className="cart-empty__icon" data-animate="scale-in">🛒</div>
             <h2>Your cart is empty</h2>
             <p>Start shopping to add items to your cart</p>
-            <Link to="/products">
+            <Link to="/products" data-animate="fade-in">
               <Button variant="primary" size="large">
                 Shop Now
               </Button>
@@ -33,13 +40,13 @@ export const Cart = () => {
   return (
     <div className="cart-page">
       <div className="container">
-        <div className="cart-page__header">
+        <div className="cart-page__header" data-animate="fade-in-down">
           <h1>Shopping Cart</h1>
           <p>{cartItems.length} {cartItems.length === 1 ? 'item' : 'items'}</p>
         </div>
 
         <div className="cart">
-          <div className="cart__items">
+          <div className="cart__items animate-stagger">
             {cartItems.map((item, index) => (
               <div key={`${item.id}-${item.selectedSize}-${item.selectedColor}-${index}`} className="cart-item">
                 <Link to={`/products/${item.id}`} className="cart-item__image">
@@ -91,7 +98,7 @@ export const Cart = () => {
             </button>
           </div>
 
-          <div className="cart__summary">
+          <div className="cart__summary" data-animate="fade-in-left">
             <h2 className="cart__summary-title">Order Summary</h2>
             <div className="cart__summary-row">
               <span>Subtotal</span>

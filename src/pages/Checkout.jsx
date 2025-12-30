@@ -1,15 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
 import { useToast } from '../contexts/ToastContext';
 import { formatCurrency } from '../utils/formatters';
 import { Button } from '../components/common/Button';
+import { setupScrollAnimations } from '../utils/animations';
 import './Checkout.css';
 
 export const Checkout = () => {
   const { cartItems, getCartTotal, clearCart } = useCart();
   const { addToast } = useToast();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const cleanup = setupScrollAnimations();
+    return cleanup;
+  }, [cartItems]);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -31,10 +37,10 @@ export const Checkout = () => {
     return (
       <div className="checkout-page">
         <div className="container">
-          <div className="checkout-empty">
+          <div className="checkout-empty" data-animate="fade-in-up">
             <h2>Your cart is empty</h2>
             <p>Add items to your cart before checkout</p>
-            <Button variant="primary" size="large" onClick={() => navigate('/products')}>
+            <Button variant="primary" size="large" onClick={() => navigate('/products')} data-animate="scale-in">
               Continue Shopping
             </Button>
           </div>
@@ -110,12 +116,12 @@ export const Checkout = () => {
   return (
     <div className="checkout-page">
       <div className="container">
-        <div className="checkout-page__header">
+        <div className="checkout-page__header" data-animate="fade-in-down">
           <h1>Checkout</h1>
         </div>
 
         <div className="checkout">
-          <div className="checkout__form-section">
+          <div className="checkout__form-section" data-animate="fade-in-right">
             <h2 className="checkout__section-title">Shipping Information</h2>
             <form onSubmit={handleSubmit} className="checkout__form">
               <div className="checkout__form-row">
@@ -259,9 +265,9 @@ export const Checkout = () => {
             </form>
           </div>
 
-          <div className="checkout__summary">
+          <div className="checkout__summary" data-animate="fade-in-left">
             <h2 className="checkout__section-title">Order Summary</h2>
-            <div className="checkout__order-items">
+            <div className="checkout__order-items animate-stagger">
               {cartItems.map((item, index) => (
                 <div key={`${item.id}-${index}`} className="checkout__order-item">
                   <img src={item.images[0]} alt={item.name} className="checkout__order-image" />

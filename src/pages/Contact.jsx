@@ -1,10 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '../components/common/Button';
 import { useToast } from '../contexts/ToastContext';
+import { setupScrollAnimations } from '../utils/animations';
 import './Contact.css';
 
 export const Contact = () => {
   const { addToast } = useToast();
+
+  useEffect(() => {
+    const cleanup = setupScrollAnimations();
+    return cleanup;
+  }, []);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -74,7 +80,7 @@ export const Contact = () => {
 
   return (
     <div className="contact-page">
-      <div className="contact-page__hero">
+      <div className="contact-page__hero" data-animate="fade-in-down">
         <div className="container">
           <h1 className="contact-page__title">Get in Touch</h1>
           <p className="contact-page__subtitle">We'd love to hear from you</p>
@@ -83,14 +89,14 @@ export const Contact = () => {
 
       <div className="container">
         <div className="contact">
-          <div className="contact__info">
+          <div className="contact__info" data-animate="fade-in-left">
             <h2 className="contact__info-title">Contact Information</h2>
             <p className="contact__info-text">
               Have a question or need assistance? Reach out to us through any of the 
               channels below, and we'll be happy to help.
             </p>
 
-            <div className="contact__details">
+            <div className="contact__details animate-stagger">
               <div className="contact__detail">
                 <div className="contact__detail-icon">📧</div>
                 <div>
@@ -148,7 +154,7 @@ export const Contact = () => {
             </div>
           </div>
 
-          <div className="contact__form-section">
+          <div className="contact__form-section" data-animate="fade-in-right">
             <h2 className="contact__form-title">Send us a Message</h2>
             <form onSubmit={handleSubmit} className="contact__form">
               <div className="contact__form-group">

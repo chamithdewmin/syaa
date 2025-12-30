@@ -26,6 +26,18 @@
   gap: var(--spacing-md);
 }
 
+.footer__logo-wrapper {
+  margin-bottom: var(--spacing-sm);
+}
+
+.footer__logo {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  /* White logo for dark background (footer) - no filter needed */
+  filter: none;
+}
+
 .footer__heading {
   font-size: 1.5rem;
   font-weight: 700;

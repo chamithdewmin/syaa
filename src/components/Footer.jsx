@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import logoImage from '../assets/logo/2.png';
 import './Footer.css';
 
 export const Footer = () => {
@@ -7,7 +8,13 @@ export const Footer = () => {
       <div className="footer__container">
         <div className="footer__content">
           <div className="footer__section">
-            <h3 className="footer__heading">SAYAA</h3>
+            <div className="footer__logo-wrapper">
+              <img 
+                src={logoImage} 
+                alt="SAYAA Logo" 
+                className="footer__logo"
+              />
+            </div>
             <p className="footer__text">
               Your destination for premium crop tops. Discover the latest trends in fashion 
               with our curated collection of stylish and comfortable crop tops.
