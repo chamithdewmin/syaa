@@ -1,0 +1,89 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-gray-200);
+  box-shadow: var(--shadow);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 18px 24px;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-black);
+}
+
+.logoAccent {
+  color: var(--color-teal);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.navLink {
+  font-weight: 500;
+  color: var(--color-gray-800);
+  transition: color var(--transition);
+}
+
+.navLink:hover {
+  color: var(--color-teal);
+}
+
+.cartLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--color-black);
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  background: var(--color-gray-100);
+  transition: all var(--transition);
+}
+
+.cartLink:hover {
+  background: var(--color-teal);
+  color: var(--color-white);
+}
+
+.cartIcon {
+  font-size: 1.2rem;
+}
+
+.cartBadge {
+  background: var(--color-teal);
+  color: var(--color-white);
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  min-width: 20px;
+  text-align: center;
+}
+
+.cartLink:hover .cartBadge {
+  background: var(--color-white);
+  color: var(--color-teal);
+}
+
+@media (max-width: 600px) {
+  .nav {
+    gap: 16px;
+  }
+  .navLink {
+    font-size: 0.9rem;
+  }
+}

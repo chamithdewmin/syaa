@@ -1,0 +1,159 @@
+.page {
+  padding: 32px 0 80px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--color-gray-600);
+  margin-bottom: 32px;
+}
+
+.breadcrumb a:hover {
+  color: var(--color-teal);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.imageWrap {
+  aspect-ratio: 1;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--color-gray-100);
+}
+
+.image {
+  border-radius: var(--radius);
+}
+
+.details {
+  position: sticky;
+  top: 100px;
+}
+
+.category {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-teal);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.colorTag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--color-gray-200);
+  color: var(--color-gray-800);
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: var(--color-black);
+  line-height: 1.2;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 20px;
+  color: var(--color-black);
+}
+
+.desc {
+  color: var(--color-gray-600);
+  margin: 0 0 28px;
+  line-height: 1.6;
+}
+
+.option {
+  margin-bottom: 24px;
+}
+
+.sizeList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.sizeBtn,
+.sizeActive {
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--color-gray-200);
+  background: var(--color-white);
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all var(--transition);
+}
+
+.sizeBtn:hover {
+  border-color: var(--color-teal);
+  color: var(--color-teal);
+}
+
+.sizeActive {
+  border-color: var(--color-teal);
+  background: var(--color-teal);
+  color: var(--color-white);
+}
+
+.quantityWrap {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid var(--color-gray-200);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.qtyBtn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: var(--color-gray-100);
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: background var(--transition);
+}
+
+.qtyBtn:hover {
+  background: var(--color-teal);
+  color: var(--color-white);
+}
+
+.qtyValue {
+  min-width: 48px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .details {
+    position: static;
+  }
+}

@@ -1,0 +1,126 @@
+.shop {
+  padding: 0 0 80px;
+}
+
+.pageBanner {
+  background: linear-gradient(135deg, var(--color-black) 0%, var(--color-gray-800) 100%);
+  color: var(--color-white);
+  padding: 48px 24px;
+  margin-bottom: 40px;
+}
+
+.pageBannerTitle {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--color-white);
+}
+
+.pageBannerSubtitle {
+  margin: 0;
+  color: var(--color-teal-light);
+  font-size: 1.05rem;
+}
+
+.header {
+  margin-bottom: 28px;
+}
+
+.header p {
+  margin: 0;
+  color: var(--color-gray-600);
+  font-size: 1rem;
+}
+
+.productCount {
+  margin-top: 8px !important;
+  font-weight: 600;
+  color: var(--color-teal) !important;
+  font-size: 0.95rem !important;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 48px;
+}
+
+.filters h3 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-gray-600);
+  margin: 0 0 12px;
+}
+
+.filters ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+}
+
+.filters li {
+  margin-bottom: 6px;
+}
+
+.filters button {
+  width: 100%;
+  text-align: left;
+  padding: 10px 14px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: var(--color-gray-800);
+  transition: all var(--transition);
+}
+
+.filters button:hover {
+  background: var(--color-gray-100);
+  color: var(--color-teal);
+}
+
+.filters button.active {
+  background: var(--color-teal);
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.empty {
+  text-align: center;
+  color: var(--color-gray-600);
+  padding: 48px;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .filters h3 {
+    width: 100%;
+  }
+  .filters ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .filters li {
+    margin: 0;
+  }
+  .filters button {
+    width: auto;
+  }
+}
