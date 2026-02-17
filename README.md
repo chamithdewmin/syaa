@@ -19,12 +19,19 @@ Frontend e-commerce site for **SYAA Clothing** — crop tops only, in **white**,
 
 ## Run locally
 
+From repo root or from `frontend/`:
+
 ```bash
+cd frontend   # or omit if you're already in frontend
 npm install
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173).
+Open [http://localhost:3000](http://localhost:3000) (or the port Vite shows).
+
+## Deploy (Dokploy)
+
+The app lives in **`frontend/`**. Set **Root Directory** to **`frontend`** in Dokploy so `frontend/.env` can be created and the build runs from `frontend/`. See [DEPLOY.md](DEPLOY.md) for details.
 
 ## Build
 
@@ -35,12 +42,22 @@ npm run preview   # serve dist/
 
 ## Docker
 
+**Option A – build from `frontend/` (recommended for Dokploy):**
+
+```bash
+cd frontend
+docker build -t syaa-clothing .
+docker run -p 3000:80 syaa-clothing
+```
+
+**Option B – build from repo root:**
+
 ```bash
 docker build -t syaa-clothing .
 docker run -p 3000:80 syaa-clothing
 ```
 
-Or with Docker Compose:
+Or with Docker Compose (from repo root):
 
 ```bash
 docker compose up --build
@@ -50,7 +67,8 @@ Site is at [http://localhost:3000](http://localhost:3000).
 
 ## Project structure
 
-- `src/pages/` — Home, Shop, ProductDetail, Cart, Checkout, OrderConfirmation
-- `src/components/` — Layout, Header, Footer, ProductCard, ProductImage
-- `src/context/CartContext.jsx` — cart state and helpers
-- `src/data/products.js` — crop top catalog (18 products, 6 types × 3 colors)
+- **`frontend/`** – app source and build
+- `frontend/src/pages/` — Home, Shop, ProductDetail, Cart, Checkout, OrderConfirmation
+- `frontend/src/components/` — Layout, Header, Footer, ProductCard, ProductImage
+- `frontend/src/context/CartContext.jsx` — cart state and helpers
+- `frontend/src/data/products.js` — crop top catalog (18 products, 6 types × 3 colors)
